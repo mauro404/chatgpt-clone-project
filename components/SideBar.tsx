@@ -5,6 +5,8 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from "../firebase";
 import NewChat from "./NewChat";
 import ChatRow from "./ChatRow";
+import ModelSelection from "./ModelSelection";
+import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
 
 function SideBar() {
   const { data: session } = useSession();
@@ -23,20 +25,32 @@ function SideBar() {
         <div>
           <NewChat />
 
-          <div>{/* model selection */}</div>
+          <div className="hidden sm:inline">
+            <ModelSelection />
+          </div>
 
-          {chats?.docs.map((chat) => (
-            <ChatRow key={chat.id} id={chat.id} />
-          ))}
+          <div className="flex flex-col space-y-2 my-2">
+            {loading && (
+              <div className="animate-pulse text-center text-white">
+                <p>Loading Chats...</p>
+              </div>
+            )}
+            {chats?.docs.map((chat) => (
+              <ChatRow key={chat.id} id={chat.id} />
+            ))}
+          </div>
         </div>
       </div>
       {session && (
-        <img
-          onClick={() => signOut()}
-          src={session.user?.image!}
-          alt={session.user?.name!}
-          className="h-12 w-12 hover:opacity-50 rounded-full cursor-pointer mx-auto mb-2"
-        />
+        <div
+          className="border-t border-gray-500 py-8"
+        >
+          <div className="flex items-center space-x-2 rounded-lg px-5 py-3 text-gray-300 hover:bg-gray-700/70 hover:opacity-50 cursor-pointer transition-all ease-out" onClick={() => signOut()}>
+          <ArrowRightOnRectangleIcon className="h-6 w-6" />
+          <p className="text-base">Log out</p>
+          </div>
+
+        </div>
       )}
     </div>
   );
