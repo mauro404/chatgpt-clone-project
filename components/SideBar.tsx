@@ -47,7 +47,7 @@ function SideBar() {
         >
           <div className="flex items-center space-x-2 rounded-lg px-5 py-3 text-gray-300 hover:bg-gray-700/70 hover:opacity-50 cursor-pointer transition-all ease-out" onClick={() => signOut()}>
           <ArrowRightOnRectangleIcon className="h-6 w-6" />
-          <p className="text-base">Log out</p>
+          <p className="lg:text-base text-sm">Log out</p>
           </div>
 
         </div>
